@@ -1,0 +1,8 @@
+---
+name: tree
+state: absent
+cache_value: no
+f_name: w1
+f_state: touch
+f_owner: santo
+f_group: santo

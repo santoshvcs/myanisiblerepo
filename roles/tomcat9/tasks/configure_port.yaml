@@ -1,0 +1,8 @@
+---
+- name: configure port for tomcat9 service
+  replace:
+   regexp: "{{port1}}"
+   replace: "{{port2}}"
+   path: "{{serverfiledest}}"
+  notify: restart the service
+

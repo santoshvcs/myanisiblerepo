@@ -1,0 +1,7 @@
+---
+- name: setting up the tomcat9 using roles
+  hosts: qa_servers
+  become: yes
+  gather_facts: no
+  roles:
+  - tomcat9

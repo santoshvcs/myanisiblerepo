@@ -1,0 +1,24 @@
+---
+- name: Error Handling
+  hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+  - block:
+    - name:  install tomcat7
+      apt: 
+       name: tomcat7
+       state: present
+       update_cache: yes
+    rescue:   
+    - name: Install tomcat9
+      apt:
+       name: tomcat9
+       state: present
+       update_cache: yes
+    always:
+    - name: Restart the service
+      service:
+       name: tomcat9
+       state: restarted
+

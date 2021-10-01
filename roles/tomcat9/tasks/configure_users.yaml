@@ -1,0 +1,7 @@
+---
+- name: copy tomcat-users.xml file to the /etc/tomcat9 location
+  copy:
+   src: "{{usersfile}}"
+   dest: "{{usersfiledest}}"
+
+                

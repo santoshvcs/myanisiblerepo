@@ -1,0 +1,20 @@
+---
+- name: create users and dispaly the output using the Debug & Register module
+  hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Create users
+    user:
+     name: "{{item.n}}"
+     password: "{{item.p}}"
+     home: "{{item.h}}"
+     shell: "{{item.s}}"
+    with_items:
+    - { n: pranesh, p: pranesh, h: /home/pranesh, s: /bin/bash }
+    - { n: amar, p: amar, h: /home/amar, s: /bin/bash }
+    register: store
+  - name: Display the output
+    debug:
+     var: store
+

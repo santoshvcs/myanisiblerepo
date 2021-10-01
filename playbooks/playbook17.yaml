@@ -1,0 +1,13 @@
+---
+- name: install firewalld using when statement
+  hosts: all
+  become: yes
+  gather_facts: no
+  vars:
+  - a: 10
+  tasks:
+  - name: install firewalld        
+    apt:
+     name: firewalld
+     state: present
+    when: a == 10

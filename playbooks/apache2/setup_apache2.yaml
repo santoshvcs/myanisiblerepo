@@ -1,0 +1,18 @@
+---
+- name: complete set-up of apache2 server
+  hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: calling child playbooks
+    include: "{{item}}"
+    with_items:
+    - install_apache2.yaml
+    - content_index.yaml
+    - restart_service.yaml
+    - check_url_response.yaml
+
+    
+
+
+

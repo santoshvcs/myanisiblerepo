@@ -1,0 +1,12 @@
+---
+- name: Install tree
+  hosts: 172.31.6.132
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: install tree package
+    apt:
+     name: "{{name}}"
+     state: "{{state}}"
+     update_cache: "{{cache_value}}"
+

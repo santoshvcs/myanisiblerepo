@@ -1,0 +1,8 @@
+---
+# tasks file for tomcat9
+- name: call child playbooks for installing tomcat9
+  include: "{{item}}"
+  with_items:
+  - install.yaml
+  - configure_users.yaml
+  - configure_port.yaml

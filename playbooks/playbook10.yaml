@@ -1,0 +1,13 @@
+---
+- name: Create file using host variables 
+  hosts: 172-31-6-132
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Create files
+    file:
+     name: "{{f_name}}"
+     state: "{{f_state}}"
+     group: "{{f_group}}"
+     owner: "{{f_owner}}"
+

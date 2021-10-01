@@ -1,0 +1,24 @@
+---
+- name: Configure apache2
+  hosts: all
+  become: yes
+  tasks:
+   - name: Install apache2        
+     apt:
+      name: apache2
+      state: present
+      update_cache: yes
+   - name: Copy the content to index.html
+     copy:
+      content: "HAI SANTOSH KUMAR YADAV HELLOW"
+      dest: /var/www/html/index.html
+     notify: Restart the service
+   - name: Check the Response
+     uri:
+      url: http://172.31.6.132
+      status_code: 200
+  handlers:    
+   - name: Restart the service
+     service:
+      name: apache2
+      state: restarted

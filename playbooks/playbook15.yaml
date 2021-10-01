@@ -1,0 +1,20 @@
+---
+- name: ERROR HANDLING in ANSIBLE
+  hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+  - block:        
+    - name: install tomcat9
+      apt:
+       name: to
+       state: present
+       update_cache: yes
+    rescue:
+    - name: install tree
+      apt:
+       name: tree
+       state: present
+       update_cache: no
+
+

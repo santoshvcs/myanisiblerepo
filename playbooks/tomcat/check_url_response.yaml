@@ -1,0 +1,6 @@
+---
+- name: Check the url response of tomcat9
+  uri:
+   url: http://172.31.6.132:9000
+   status_code: 200
+

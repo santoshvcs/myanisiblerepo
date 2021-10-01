@@ -1,0 +1,6 @@
+---
+- name: Replacing port 8000 with 9000
+  replace:
+   regexp: 8000
+   replace: 9000
+   path: /etc/tomcat9/server.xml

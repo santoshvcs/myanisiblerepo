@@ -1,0 +1,14 @@
+---
+# vars file for tomcat9
+tomcatpkg: tomcat9
+state: present
+updaterepo: yes
+tomcatadmpkg: tomcat9-admin
+stateadm: present
+updaterepoadm: no
+servicestate: restarted
+usersfile: tomcat-users.xml
+usersfiledest: /etc/tomcat9
+port1: 8080
+port2: 9000
+serverfiledest: /etc/tomcat9/server.xml

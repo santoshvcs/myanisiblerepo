@@ -1,0 +1,26 @@
+---
+- name: create users and download files
+  hosts: all
+  become: yes
+  gather_facts: no
+  vars:
+  - name: Golla
+  - password: Golla
+  - home: /home/Golla
+  - shell: /bin/bash
+  - comment: "This is Normal user"  
+  - jenkins: https://get.jenkins.io/war-stable/2.303.1/jenkins.war
+  - dest: /tmp/war  
+  tasks:
+  - name: Create users
+    user:
+     name: "{{name}}"
+     password: "{{password}}"
+     home: "{{home}}"
+     shell: "{{shell}}"
+     comment: "{{comment}}"
+  - name: DOwnload files
+    get_url:
+     url: "{{jenkins}}"
+     dest: "{{dest}}"
+

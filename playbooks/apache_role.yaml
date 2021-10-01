@@ -1,0 +1,7 @@
+---
+- name: setting up the apache2 using roles
+  hosts: qa_servers
+  become: yes
+  gather_facts: no
+  roles:
+  - apache

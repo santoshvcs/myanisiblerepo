@@ -1,0 +1,42 @@
+---
+- name: configure tomcat9 webserver and activate the service
+  hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: install Tomcat9 and Tomcat9-admin
+    apt:
+     name: "{{item}}"
+     state: present
+     update_cache: yes
+    with_items:
+    - tomcat9
+    - tomcat9-admin
+
+  - name: copy tomcat-users.xml file
+    copy:
+     src: /tmp/dir1/tomcat-users.xml
+     dest: /etc/tomcat9
+     remote_src: no
+    
+  - name: Replace the Port number
+    replace:
+     regexp: 9090
+     replace: 8000
+     path: /etc/tomcat9/server.xml
+    notify: Restart the service
+
+  - name: Check the connection
+    uri:
+     url: http://172.31.8.90:8000
+     status_code: 200
+    notify: Restart the service
+    tags:
+     - connect
+  handlers:
+  - name: Restart the service
+    service:
+     name: tomcat9
+     state: restarted
+
+  

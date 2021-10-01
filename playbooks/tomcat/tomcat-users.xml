@@ -1,0 +1,4 @@
+<tomcat-users>
+        <user username="kumar" password="kumar" roles="manager-gui,manager-script"/>
+</tomcat-users>
+

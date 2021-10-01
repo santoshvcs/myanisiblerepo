@@ -1,0 +1,56 @@
+---
+- name: Set-up complete CI-CD pipeline
+  hosts: servers
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: configure dev,build,qa and prod servers
+    apt:
+     name: "{{item.a}}"
+     state: "{{item.b}}"
+     update_cache: "{{item.c}}"
+    with_items:
+    - { a: openjdk-8-jdk, b: present, c: yes }
+    - { a: git, b: present, c: no }
+    - { a: maven, b: present, c: no }
+    - { a: tomcat9, b: present, c: no }
+    - { a: tomcat9-admin, b: present, c: no }
+
+- name: Download code and Create package
+  hosts: build_servers
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: download code
+    git:
+     repo: https://github.com/intelliqittrainings/maven.git
+     dest: /opt/git/repo
+
+  - name: create artifact
+    shell: cd /opt/git/repo;mvn package
+
+- name: Continuous deployment/delivery to QA server
+  hosts: qa_servers
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: copy the artifact to the concerned path
+    copy:
+     src: /opt/git/repo/webapp/target/webapp.war
+     dest: /var/lib/tomcat9/webapps/testapp.war  
+  - name: download the test scripts
+    git:
+     repo: https://github.com/intelliqittrainings/FunctionalTesting.git 
+     dest: /opt/git/test_scripts     
+  - name: Continuous Testing
+    shell: java -jar /opt/git/test_scripts/testing.jar
+
+- name: Continuous deployment/Delivary to Prod server    
+  hosts: prod_servers
+  become: yes
+  gather_facts: no
+  tasks:
+   - name: copy the artifact to the concerned location
+     copy: 
+       src: /opt/git/repo/webapp/target/webapp.war
+       dest: /var/lib/tomcat9/webapps/prodapp.war

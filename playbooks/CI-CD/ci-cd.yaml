@@ -1,0 +1,64 @@
+---
+- name: Set-up complete CI-CD pipeline
+  hosts: dev_servers
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: create dev-server
+    apt:
+     name: "{{item.a}}"
+     state: "{{item.b}}"
+     update_cache: "{{item.c}}"
+    with_items:
+    - { a: openjdk-8-jdk, b: absent, c: yes }
+    - { a: git, b: absent, c: no }
+    - { a: maven, b: present, c: no }  
+
+  - name: Download Jenkins.war
+    get_url:
+     url: https://get.jenkins.io/war-stable/2.303.1/jenkins.war
+     dest: /opt/ansible/CI-CD
+
+  - name: Execute jenkins.war
+    shell: java -jar /opt/ansible/CI-CD/jenkins.war
+ 
+  
+---
+- name: Create QA server
+  hosts: qa_servers
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Install needed packages
+    apt:
+     name: "{{item.a}}"
+     state: "{{item.b}}"
+     update_cache: "{{item.c}}"
+    with_items:
+    - { a: openjdk-8-jdk, b: present, c: yes }
+    - { a: git, b: present, c: no }
+    - { a: maven, b: present, c: no }
+    - { a: tomcat9, b: present, c: no }
+    - { a: tomcat9-admin, b: present, c: no }  
+  
+---
+- name: Create PROD server
+  hosts: prod_servers
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Install needed packages
+    apt:
+     name: "{{item.a}}"
+     state: "{{item.b}}"
+     update_cache: "{{item.c}}"
+    with_items:
+    - { a: openjdk-8-jdk, b: present, c: yes }
+    - { a: git, b: present, c: no }
+    - { a: maven, b: present, c: no }
+    - { a: tomcat9, b: present, c: no }
+    - { a: tomcat9-admin, b: present, c: no }
+
+       
+ 
+

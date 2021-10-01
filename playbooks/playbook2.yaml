@@ -1,0 +1,20 @@
+---
+- name: Create directory and copy the passwd file into it.
+  hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Create directory
+    file:
+     name: /tmp/ansdir1
+     state: directory
+     owner: ayodhya
+     group: ayodhya
+     mode: '777'
+  - name: Copy passwd file
+    copy:
+     src: /etc/passwd
+     dest: /tmp/ansdir1
+
+
+

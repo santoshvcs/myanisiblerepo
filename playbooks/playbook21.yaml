@@ -1,0 +1,26 @@
+---
+- name: Create a file and directory and check the details of the file and directory.
+  hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Create File and directory        
+    file:
+     name: "{{item.n}}"
+     owner: "{{item.o}}"
+     group: "{{item.g}}"
+     mode: "{{item.m}}"
+     state: "{{item.s}}"
+    with_items:
+    - { n: pran.txt, o: pranesh, g: pranesh, m: 777, s: touch }
+    - { n: amardir, o: amar, g: amar, m: 777, s: directory }  
+    tags:
+    - file
+    - dir
+  - name: Use STAT module to capture the details of the file and directories
+    stat:
+     path: /home/ansible/pran.txt       
+    register: save
+  - name: Use debug module to dispaly the details of the file and directory
+    debug:
+     var: save

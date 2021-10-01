@@ -1,0 +1,15 @@
+---
+- name: Check for the directory called amardir and if it exists then okay otherwise we have to create one
+  hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: check for the directory called 'amardir'
+    stat:
+     path: /home/ansible/amardir
+    register: output
+  - name: Create the directory called 'amardir' if it doesn't exists
+    file:
+     name: amardir
+     state: directory
+    when: output.stat.exists == false 

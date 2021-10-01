@@ -1,0 +1,27 @@
+---
+- name: Create users and files using looping concept
+  hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Create users
+    user:
+     name: "{{item.a}}"
+     password: "{{item.b}}"
+     home: "{{item.c}}"
+     shell: "{{item.d}}"
+     comment: "{{item.e}}"
+    with_items:
+    - { a: manu, b: manu, c: /home/manu, d: /bin/bash, e: "This is manu" }
+    - { a: manogna, b: manogna, c: /home/manogna, d: /bin/bash, e: "This is manogna"   }
+              
+  - name: Create files
+    file: 
+     name: "{{item.f}}"
+     state: "{{item.g}}"
+     mode: "{{item.h}}"
+     owner: "{{item.i}}"
+     group: "{{item.j}}"
+    with_items:
+    - { f: y1, g: touch, h: "777", i: manu, j: manu }
+    - { f: y2, g: touch, h: "777", i: manogna, j: manogna }

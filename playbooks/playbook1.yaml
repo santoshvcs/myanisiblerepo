@@ -1,0 +1,15 @@
+---
+- name: UserManagement 
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: Create users
+    user:
+     name: ayodhya
+     password: ayodhya
+     shell: /bin/bash
+     comment: "Normal User"
+     uid: 1009
+     home: /home/ayodhya
+

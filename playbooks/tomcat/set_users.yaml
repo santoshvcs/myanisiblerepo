@@ -1,0 +1,5 @@
+---
+- name: copy tomcat-users.xml to /etc/tomcat9
+  copy:
+   src: /opt/ansible/playbooks/tomcat/tomcat-users.xml
+   dest: /etc/tomcat9

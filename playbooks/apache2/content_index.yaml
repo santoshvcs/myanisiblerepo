@@ -1,0 +1,7 @@
+---
+- name: copy content to index.html file
+  copy:
+   content: "Hello santosh kumar"
+   dest: /var/www/html/index.html
+
+

@@ -1,0 +1,15 @@
+---
+- name: install git and clone repo to some directory
+  hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Install git
+    apt:
+     name: git
+     state: present
+  - name: clone the rpo to /tmp/ansible/gitrepo directory.
+    git:
+     repo: https://github.com/santoshvcs/maven-1.git
+     dest: /tmp/ansible/gitrepo
+

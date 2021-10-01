@@ -1,0 +1,5 @@
+---
+name: tree
+state: absent
+cache_value: yes
+

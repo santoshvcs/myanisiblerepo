@@ -1,0 +1,22 @@
+---
+- name: Tagging
+  hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: To install tree package
+    apt:
+     name: tree
+     state: present
+     update_cache: yes
+    tags:
+    - tree
+    - t
+  - name: To install git package  
+    apt:
+     name: git
+     state: present
+     update_cache: no
+    tags:
+    - git
+    - g

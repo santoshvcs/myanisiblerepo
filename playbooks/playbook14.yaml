@@ -1,0 +1,30 @@
+---
+- name: Install apache and restart the service only when the index.html file is updated.
+  hosts: all
+  gather_facts: no
+  become: yes
+
+  tasks:
+  - name: install apache2
+    apt:
+     name: apache2
+     state: present
+     update_cache: yes
+    notify: Check the Response
+
+  - name: Edit the index.html file
+    copy:
+     content: "HAI MANOGNA SMILE SMILE SMILE"
+     dest: /var/www/html/index.html
+    notify: Restart the service
+  
+  handlers:
+  - name: Restart the service
+    service:
+     name: apache2
+     state: restarted
+
+  - name: Check the Response
+    uri:
+     url: http://172.31.6.132
+     status_code: 200 

@@ -1,0 +1,16 @@
+---
+- name: Installing and unistalling softwares
+  hosts: all
+  become: yes
+  
+  tasks:
+  - name: install packages
+    apt: 
+     name: "{{a}}"
+     state: "{{b}}"
+     update_cache: "{{c}}"  
+    
+    
+
+
+

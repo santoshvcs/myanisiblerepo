@@ -1,0 +1,11 @@
+---
+- name: Install tomcat
+  apt:
+   name: "{{item}}"
+   state: present
+   update_cache: yes
+  with_items:
+  - tomcat9
+  - tomcat9-admin
+
+

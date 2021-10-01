@@ -1,0 +1,6 @@
+---
+- name: Restart the tomcat9 service
+  service:
+   name: tomcat9
+   state: restarted
+
